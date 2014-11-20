@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cal',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,13 +57,18 @@ WSGI_APPLICATION = 'chw.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
+try:
+    from local_settings import *
+except ImportError:
+    ENGINE = 'django.db.backends.sqlite3',
+    NAME = os.path.join(BASE_DIR, 'db.sqlite3'),
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': ENGINE,
+        'NAME': NAME,
     }
 }
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
@@ -80,4 +86,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+TEMPLATE_DIRS = [
+    os.path.join(BASE_DIR,'..','cal','templates'),
+    os.path.join(BASE_DIR,'chw','templates'),
+]
+
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'chw', 'static'),
+)
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'chw', 'media')
+MEDIA_URL = '/media/'
+
+AUTH_USER_MODEL = 'cal.SiteUser'
+
+LOGIN_URL = '/login/'
