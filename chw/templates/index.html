@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calendar</title>
+        {% load staticfiles %}
+        
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"/>
+        
+        <!-- Javascript -->
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        
+        <!-- Page-specific head -->
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+    	<div class="container">
+        	<h1>Calendar</h1>
+        	
+        	<!-- Calendar part -->
+        	<div class="calendar-div section">
+				<table class="calendar">
+					<tr>
+					{% for item in calendar %}
+						<td>
+							<div onclick="javascript:open_item('{{ item.date|date:"dmY" }}')" class="calendar-item{% if item.today %} today-div{% endif %}">
+								<div>{{ item.date|date:"M d" }}</div>
+								<div>{{ item.date|date:"l" }}</div>
+							</div>
+						</td>
+						{% if forloop.counter|divisibleby:7 %}
+					</tr>
+					<tr>
+						{% else %}
+						<td></td>
+						{% endif %}
+					{% endfor %}
+					</tr>
+				</table>
+        	</div>
+        	
+        	<!-- Specific item -->
+        	<div class="add-item-div section">
+        		<div id="date-info"></div>
+        		<div id="date-events-info"></div>
+        		<div><a href="javascript:save_item(10)">Return</a></div>
+        	</div>
+        	
+        	<!-- List of all items -->
+        	<div class="all-items-div section">
+        		<div>All Events</div>
+        		<div><a href="javascript:main_view()">Return</a></div>
+        	</div>
+        	
+        	<div class="navigation"><a href="javascript:list_events()">View All</a></div>
+        	<div class="footer">Footer? You barely know 'er!</div>
+        	
+        	<!-- Some stuff for making AJAX calls -->
+        	<div class="url-for-ajax" style="display: none;">{% url 'cal:info' %}</div>
+        	<div class="csrf-token" style="display: none;">{{ csrf_token }}</div>
+        </div>
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+</html>

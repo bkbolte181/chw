@@ -1,0 +1,49 @@
+html {
+	font-family: "Courier New", monospace;
+}
+.container {
+	max-width: 1000px;
+	min-width: 600px;
+	clear: both;
+	margin: auto;
+	padding: 10px;
+}
+.footer {
+	border: 1px solid black;
+	padding: 5px 10px 5px 10px;
+	margin-top: 20px;
+}
+.calendar {
+	table-layout: fixed;
+	width: 100%;
+}
+.calendar-item {
+	height: 100px;
+	padding: 3px;
+	border: 1px solid black;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	text-align: right;
+}
+.calendar-item:hover {
+	/* border: 2px solid black;
+	margin-top: 2px;
+	margin-bottom: 2px; */
+	box-shadow: 0 0 10px #999999;
+}
+.calendar td:empty {
+	width: 2px;
+}
+.today-div {
+	font-weight: bold;
+}
+.navigation {
+	padding-top: 20px;
+}
+
+h1  { font-size: 30px; }
+h2  { font-size: 25px; }
+h3  { font-size: 20px; }
+h4  { font-size: 15px; }
+p   { font-size: 13px; }
+div { font-size: 13px; }

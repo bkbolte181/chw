@@ -60,12 +60,11 @@ class SiteUser(AbstractBaseUser):
     def get_full_name(self): return self.first_name, self.last_name
     def get_short_name(self): return self.first_name
 
-class Section(models.Model):
-    teacher = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='teacher_sections', related_query_name='teacher_section', default=0)
-    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='student_sections', related_query_name='student_section', default=0)
-    enrollment_number = models.CharField(max_length=100, help_text='Enrollment Number')
-    
-class Assignment(models.Model):
-    title = models.CharField(max_length=100, help_text='Assignment Name')
-    description = models.CharField(max_length=1000, help_text='Assignment Description')
-    section = models.ForeignKey('Section', related_name='assignments', related_query_name='assignment', default=0)
+class Day(models.Model):
+	date = models.DateField()
+
+class Event(models.Model):
+	title = models.CharField(max_length=200)
+	creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="creators", related_query_name="creator", default=0)
+	subscribers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="subscribers", related_query_name="subscriber", default=0)
+	day = models.ManyToManyField('Day', related_name='events', related_query_name='event', default=0)
